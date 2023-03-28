@@ -7,7 +7,7 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    spp: config-service
+    app: config-service
   ports:
     - protocol: TCP
       port: 80
