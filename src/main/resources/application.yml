@@ -1,28 +1,28 @@
 server:
   port: 8888
+  shutdown: graceful
   tomcat:
     connection-timeout: 2s
     keep-alive-timeout: 15s
     threads:
       max: 50
       min-spare: 5
-  shutdown: graceful
 
 spring:
   application:
     name: config-service
   lifecycle:
     timeout-per-shutdown-phase: 15s
-
   cloud:
     config:
       server:
         git:
-          uri: https://github.com/aasmc/config-repo.git
-          default-label: master
+          uri: https://github.com/aasmc/config-repo
+          default-label: main
           timeout: 5
           clone-on-start: true
           force-pull: true
+
 logging:
   pattern:
     level: "%5p [${spring.application.name},%X{trace_id},%X{span_id}]"
@@ -34,7 +34,7 @@ management:
   endpoints:
     web:
       exposure:
-        include: health, configprops, env, heapdump, info, loggers, mappings, prometheus
+        include: configprops, env, health, heapdump, info, loggers, mappings, prometheus
   endpoint:
     health:
       show-details: always

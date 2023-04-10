@@ -1,25 +1,27 @@
 plugins {
-	id 'java'
 	id 'org.springframework.boot' version '2.7.9'
 	id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+	id 'java'
 }
 
 group = 'ru.aasmc'
 version = '0.0.1-SNAPSHOT'
 sourceCompatibility = '17'
 
+description = 'Provides functionality for centralizing the application configuration.'
+
 repositories {
 	mavenCentral()
 }
 
 ext {
-	set('otelVersion', "1.17.0")
-	set('springCloudVersion', "2021.0.6")
+	set('otelVersion', "1.19.2")
+	set('springCloudVersion', "2021.0.5")
 }
 
 dependencies {
-	implementation 'org.springframework.cloud:spring-cloud-config-server'
 	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	implementation 'org.springframework.cloud:spring-cloud-config-server'
 
 	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 	runtimeOnly "io.opentelemetry.javaagent:opentelemetry-javaagent:${otelVersion}"
@@ -31,6 +33,10 @@ dependencyManagement {
 	imports {
 		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
 	}
+}
+
+springBoot {
+	buildInfo()
 }
 
 bootBuildImage {
